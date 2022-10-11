@@ -9,7 +9,6 @@ path_to_song = 'sounds/blackpink-shut-down-mp3.mp3'
 
 
 def playsound_once(time, path):
-    print(f'Your alarm, set on {time} is playing')
     p = multiprocessing.Process(target=playsound, args=(path,))
     p.start()
     input("press ENTER to stop playback")
@@ -18,7 +17,6 @@ def playsound_once(time, path):
 
 
 def playSound(time, path):
-    print(f'Your alarm, set on {time} is playing')
     p = multiprocessing.Process(target=playsound, args=(path,))
     p.start()
     input("press ENTER to stop playback")
@@ -69,11 +67,17 @@ def checkConftoValid(conf):
 
 def setSchedule(time,t):
     if t == 4:
-        t1 = schedule.every().day.at(time).do(playSound(time, path_to_song))
-        schedule.cancel_job(t1)
+        try:
+            t1 = schedule.every().day.at(time).do(playSound(time, path_to_song))
+            schedule.cancel_job(t1)
+        except Exception:
+            return 1
     else:
-        t2 = schedule.every().day.at(time).do(playsound_once(time, path_to_song))
-        schedule.cancel_job(t2)
+        try:
+            t1 = schedule.every().day.at(time).do(playsound_once(time, path_to_song))
+            schedule.cancel_job(t1)
+        except Exception:
+            return 1
 
 def checkForvalidpath(path):
     if not exists(abspath(path)):
@@ -93,6 +97,9 @@ if __name__ == '__main__':
             inp2 = checkTimeforValid(time)
         printDefaultmsg(inp2)
         inp3 = checkConftoValid(input())
+        while inp3 == 6:
+            printDefaultmsg(6)
+            inp3 = checkConftoValid(input())
         setSchedule(time,inp3)
         printDefaultmsg(inp3,time)
         printDefaultmsg(7)
@@ -101,7 +108,12 @@ if __name__ == '__main__':
             printDefaultmsg(6)
             inp4 = checkConftoValid(input())
         printDefaultmsg(10)
-        printDefaultmsg(checkForvalidpath(input()))
+        inp5 = checkForvalidpath(input())
+        while inp5 == 9:
+            printDefaultmsg(inp5)
+            inp5 = checkForvalidpath(input())
+        printDefaultmsg(inp5)
+
 
 
 
