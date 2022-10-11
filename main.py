@@ -39,7 +39,9 @@ def printDefaultmsg(t,time = "12:00"):
 def checkTimeforValid(time):
     try:
         a = time.split(":")
-        if len(a) == 2 and len(a[1]) == 2 and len(a[0]) == 2:
+        b = int(a[0])
+        c = int(a[1])
+        if len(a) == 2 and len(a[1]) == 2 and len(a[0]) == 2 and b<24 and c<60:
             return 3
     except Exception:
         return 2
