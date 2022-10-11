@@ -19,6 +19,11 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(a, 6)
         self.assertEqual(b, 4)
         self.assertEqual(c, 5)
+    def test_path(self):
+        a = checkForvalidpath("/Users")
+        b = checkForvalidpath("/Uswes")
+        self.assertEqual(a, 8)
+        self.assertEqual(b, 9)
 
 if __name__ == '__main__':
     unittest.main()

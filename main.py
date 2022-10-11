@@ -1,3 +1,5 @@
+from os.path import exists, abspath
+
 from playsound import playsound
 from datetime import datetime, timedelta
 import multiprocessing
@@ -35,6 +37,14 @@ def printDefaultmsg(t,time = "12:00"):
         print(f'Your alarm is set for:{time}')
     if t == 6:
         print("Please enter in format y/n:")
+    if t == 7:
+        print("Do you want to set your own music y/n")
+    if t == 8:
+        print("Set!!")
+    if t == 9:
+        print("Could not open your file, enter again")
+    if t == 10:
+        print("Enter your music path")
 
 def checkTimeforValid(time):
     try:
@@ -65,6 +75,10 @@ def setSchedule(time,t):
         t2 = schedule.every().day.at(time).do(playsound_once(time, path_to_song))
         schedule.cancel_job(t2)
 
+def checkForvalidpath(path):
+    if not exists(abspath(path)):
+        return 9
+    return 8
 
 if __name__ == '__main__':
 
@@ -81,6 +95,14 @@ if __name__ == '__main__':
         inp3 = checkConftoValid(input())
         setSchedule(time,inp3)
         printDefaultmsg(inp3,time)
+        printDefaultmsg(7)
+        inp4 = checkConftoValid(input())
+        while inp4 == 6:
+            printDefaultmsg(6)
+            inp4 = checkConftoValid(input())
+        printDefaultmsg(10)
+        printDefaultmsg(checkForvalidpath(input()))
+
 
 
 
