@@ -49,6 +49,7 @@ def checkTimeforValid(time):
 
 
 def checkConftoValid(conf):
+    conf = conf.lower()
     if conf == 'y':
         return 4
     elif conf =='n':

@@ -12,5 +12,13 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(c, 2)
         self.assertEqual(d, 2)
 
+    def test_conf(self):
+        a = checkConftoValid("s")
+        b = checkConftoValid("y")
+        c = checkConftoValid("N")
+        self.assertEqual(a, 6)
+        self.assertEqual(b, 4)
+        self.assertEqual(c, 5)
+
 if __name__ == '__main__':
     unittest.main()
